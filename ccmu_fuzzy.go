@@ -123,16 +123,15 @@ func checkPasswd(user, passwd string) bool {
     form.Add("0MKKey", "")
 
     req, err := http.NewRequest("POST", URL, strings.NewReader(form.Encode()))
-    if err != nil {
-        log.Error("failed to sent post request due to %s [user: %s pass: %s]", err, user, passwd)
-        return false
-    }
-
     // 防止被 dr.com banned
     req.Header.Set(`User-Agent`, `Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36`)
     req.Header.Set(`Referer`, URL)
 
     resp, err := client.Do(req)
+    if err != nil {
+        log.Error("failed to sent post request due to %s [user: %s pass: %s]", err, user, passwd)
+        return false
+    }
     defer resp.Body.Close()
 
     body, err := ioutil.ReadAll(resp.Body)
