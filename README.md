@@ -2,7 +2,7 @@
 
 This tool provides automatic login feature for connect to the network authenticated by dr.com.
 
-It just opens a webpage, most browsers will open it on a new tab.
+All work done, it will opens a webpage, most browsers will open it on a new tab.
 
 ## Installation
 
@@ -34,4 +34,4 @@ It is licensed under the MIT open source license, please see the [LICENSE.md] fi
 
 ## Thanks...
 
-panjunwen wrote a nicer version by python. I forked it here[fuzzy_test.py](./fuzzy_test.py), [check it out!](https://github.com/panjunwen/Dr.COM-login).
+panjunwen wrote a nicer version by python. I forked it here [fuzzy_test.py](./fuzzy_test.py), [check it out!](https://github.com/panjunwen/Dr.COM-login).
