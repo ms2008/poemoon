@@ -42,12 +42,12 @@ func main() {
     defer log.Close()
 
     args := os.Args
-    fmt.Println("os args:", os.Args)
     if len(args)==2 && (args[1]=="--version" || args[1] =="-v") {
         fmt.Printf("Git Commit Hash: %s\n", githash)
         fmt.Printf("UTC Build Time: %s\n", buildstamp)
         return
     }
+    fmt.Println("os args:", os.Args)
 
     userList := fileTolines(FILE)
     rand.Seed(time.Now().Unix())
