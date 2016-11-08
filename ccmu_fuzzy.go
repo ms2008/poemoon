@@ -150,7 +150,7 @@ func checkPasswd(user, passwd string) bool {
     } else if string(line[1]) == "S" {
         return false
     } else {
-        log.Error("unexpected response! [user: %s pass: %s]", user, passwd)
+        log.Warn("unexpected response! [user: %s pass: %s]", user, passwd)
         return false
     }
 }

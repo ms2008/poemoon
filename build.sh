@@ -43,7 +43,7 @@ go build -ldflags "$flags" -x -o ${release_dir}/CCMU.exe ccmu_fuzzy.go
 
 cp ./README.md ./${release_dir}/
 cp ./ids.txt ./${release_dir}/
-cp ./ccmu_test.py ./${release_dir}/
+cp ./fuzzy_test.py ./${release_dir}/
 
 
 echo "finish building with GOOS: "${OS}", GOARCH: "${ARCH}
