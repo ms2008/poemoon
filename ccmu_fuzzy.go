@@ -33,7 +33,7 @@ var githash string = ""
 
 func init() {
     log.AddFilter("stdout", l4g.DEBUG, l4g.NewConsoleLogWriter())
-    log.AddFilter("file", l4g.ERROR, l4g.NewFileLogWriter("error.log", false))
+    log.AddFilter("file", l4g.INFO, l4g.NewFileLogWriter("connect.log", false))
 }
 
 func main() {

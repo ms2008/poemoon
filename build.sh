@@ -39,7 +39,7 @@ rm -rf ./${release_dir}/*
 
 flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git rev-parse HEAD`"
 echo ${flags}
-go build -ldflags "$flags" -x -o ${release_dir}/ccmu_fuzzy.exe ccmu_fuzzy.go
+go build -ldflags "$flags" -x -o ${release_dir}/CCMU.exe ccmu_fuzzy.go
 
 
 cp ./start_gaode_api.sh ./${release_dir}/
