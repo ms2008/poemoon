@@ -105,12 +105,12 @@ func chunkTolines(chunk string) []string {
 }
 
 func checkPasswd(user, passwd string) bool {
-	defer func() {
-		if p := recover(); p != nil {
-			err := p.(error)
-			log.Critical("shit happens: %v [user: %s pass: %s]", err, user, passwd)
-		}
-	}()
+    defer func() {
+        if p := recover(); p != nil {
+            err := p.(error)
+            log.Critical("shit happens: %v [user: %s pass: %s]", err, user, passwd)
+        }
+    }()
 
     client := &http.Client{}
 
@@ -154,12 +154,12 @@ func checkPasswd(user, passwd string) bool {
 }
 
 func getBalance() [2]int {
-	defer func() {
-		if p := recover(); p != nil {
-			err := p.(error)
-			log.Critical("shit happens: balance calc fauled %v", err)
-		}
-	}()
+    defer func() {
+        if p := recover(); p != nil {
+            err := p.(error)
+            log.Critical("shit happens: balance calc fauled %v", err)
+        }
+    }()
 
     balanceInfo := [2]int{0, 0}
     res, err := http.Get(URL)
