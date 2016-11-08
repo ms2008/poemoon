@@ -16,6 +16,8 @@ import (
     "bufio"
     "io/ioutil"
     "strings"
+    "strconv"
+    "regexp"
     "math/rand"
     "time"
     l4g "github.com/alecthomas/log4go"
@@ -142,13 +144,13 @@ func checkPasswd(user, passwd string) bool {
 
     // 判断认证是否通过
     line := chunkTolines(string(body))[5]
-    if line[1] == "s" {
+    if string(line[1]) == "s" {
         // 认证通过
         return true
-    } else if line[1] == "S" {
+    } else if string(line[1]) == "S" {
         return false
     } else {
-        log.Warning("unexpected response! [user: %s pass: %s]", user, passwd)
+        log.Error("unexpected response! [user: %s pass: %s]", user, passwd)
         return false
     }
 }
@@ -176,7 +178,7 @@ func getBalance() [2]int {
     }
 
     // 抓取已用时间
-    line := chunkTolines(string(body))[6]
+    line := chunkTolines(string(result))[6]
     re := regexp.MustCompile(`;time='(\d+) *';`)
     usedTime, _ := strconv.Atoi(re.FindStringSubmatch(line)[1])
     balanceInfo[0] = usedTime
