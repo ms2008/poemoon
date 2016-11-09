@@ -4,6 +4,17 @@ This tool provides automatic login feature for connect to the network authentica
 
 All work done, it will opens a webpage, most browsers will open it on a new tab.
 
+## Dependency
+
+To install, run the following commands in this order:
+
+```sh
+go get github.com/josephspurrier/goversioninfo
+cd $GOPATH/src/github.com/josephspurrier/goversioninfo/cmd/goversioninfo
+go build
+mv goversioninfo* $GOROOT/bin
+```
+
 ## Installation
 
 You should always execute the command below first, so goversioninfo will create a file called resource.syso in the same directory.
