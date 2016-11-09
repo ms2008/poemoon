@@ -60,9 +60,13 @@ func main() {
 
         if count == 1 && len(userList) == 0 {
             fmt.Println("瞎啊，密码库是空的！")
+            fmt.Println("按下「回车键」终止本程序")
+            fmt.Scanln()
             return
         } else if len(userList) == 0 {
             fmt.Println("你的学弟学妹们都太抠了，连费都舍不得充！")
+            fmt.Println("按下「回车键」终止本程序")
+            fmt.Scanln()
             return
         }
 
