@@ -6,6 +6,8 @@
 //Author: ms2008vip@gmail.com at 2016/11/8 16:54:29
 //
 
+//go:generate goversioninfo -icon=cover.ico
+
 package main
 
 import (
