@@ -6,6 +6,12 @@ All work done, it will opens a webpage, most browsers will open it on a new tab.
 
 ## Installation
 
+You should always execute the command below first, so goversioninfo will create a file called resource.syso in the same directory.
+
+```sh
+go generate
+```
+
 ### for windows
 ```sh
 # for 32 bit
