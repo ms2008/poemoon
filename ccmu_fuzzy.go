@@ -141,7 +141,9 @@ func checkPasswd(user, passwd string) bool {
         }
     }()
 
-    client := &http.Client{}
+    client := &http.Client{
+        Timeout: time.Duration(10 * time.Second),
+    }
 
     // 构造认证请求
     form := url.Values{}

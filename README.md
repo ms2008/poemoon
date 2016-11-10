@@ -23,7 +23,7 @@ You should always execute the command below first, so goversioninfo will create 
 go generate
 ```
 
-### for windows
+##### for windows
 ```sh
 # for 32 bit
 sh build.sh windows 386
@@ -31,7 +31,13 @@ sh build.sh windows 386
 sh build.sh windows amd64
 ```
 
-### for linux
+##### for mac os x
+```sh
+# for 64 bit
+sh build.sh darwin amd64
+```
+
+##### for linux
 ```sh
 # for 32 bit
 sh build.sh linux 386
@@ -40,6 +46,7 @@ sh build.sh linux amd64
 ```
 
 That's it!
+
 
 ## Crossplatform support
 
