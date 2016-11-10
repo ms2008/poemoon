@@ -47,7 +47,6 @@ sh build.sh linux amd64
 
 That's it!
 
-
 ## Crossplatform support
 
 The package is guaranteed to work on `windows`, `linux` and `darwin`. It also has default support for `freebsd`, `openbsd` and `netbsd` but these three have not been tested yet (that I'm aware of).
