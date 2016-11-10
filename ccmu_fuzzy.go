@@ -59,8 +59,8 @@ func main() {
 
     for {
 
-        if count == 1 && len(userList) == 0 {
-            fmt.Println("瞎啊，密码库是空的！")
+        if count == 1 && len(userList) == 1 && strings.TrimSpace(userList[0]) == "\xef\xbb\xbf" {
+            fmt.Println("密码库是空的！")
             fmt.Println("按下「回车键」终止本程序")
             fmt.Scanln()
             return
@@ -86,10 +86,19 @@ func main() {
 
         n := rand.Intn(len(userList))
         line := userList[n]
+
+        // 将测试过的用户移除出当前密码库
+        userList = append(userList[:n], userList[n+1:]...)
+        count++
+
         //userInfo := strings.Split(line, "\t")
         userInfo := strings.Fields(line)
+        if len(userInfo) < 2 {
+            log.Critical("shit happens: unrecognized user info format: %v", userInfo)
+            continue
+        }
         account := userInfo[0]
-        password := userInfo[3]
+        password := userInfo[len(userInfo)-1]
         //username := userInfo[1]
 
         //fmt.Println(account, password, username)
@@ -107,9 +116,6 @@ func main() {
                 break
             }
         }
-        // 将测试过的用户移除出当前密码库
-        userList = append(userList[:n], userList[n+1:]...)
-        count++
     }
 
     fmt.Println("看到这个，就是想证明下我不是个恶意程序，5s 之后就看不到我啦 :-)")
@@ -119,7 +125,10 @@ func main() {
 func fileTolines(filePath string) []string {
     f, err := os.Open(filePath)
     if err != nil {
-        panic(err)
+        //panic(err)
+        fmt.Println("没有发现密码库文件！")
+        fmt.Println("按下「CTRL + C」终止本程序")
+        fmt.Scanln()
     }
     defer f.Close()
 
