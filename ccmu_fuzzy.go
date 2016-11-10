@@ -201,7 +201,7 @@ func checkPasswd(user, passwd string) bool {
     }
 }
 
-func getBalance() [2]int {
+func getBalance() [2]float64 {
     defer func() {
         if p := recover(); p != nil {
             err := p.(error)
@@ -209,7 +209,7 @@ func getBalance() [2]int {
         }
     }()
 
-    balanceInfo := [2]int{0, 0}
+    balanceInfo := [2]float64{0, 0}
     res, err := http.Get(URL)
     if err != nil {
         log.Error("failed to get balance info due to %s", err)
@@ -226,14 +226,14 @@ func getBalance() [2]int {
     // 抓取已用时间
     line := chunkTolines(string(result))[6]
     re := regexp.MustCompile(`;time='(\d+) *';`)
-    usedTime, _ := strconv.Atoi(re.FindStringSubmatch(line)[1])
+    usedTime, _ := strconv.ParseFloat(re.FindStringSubmatch(line)[1], 64)
     balanceInfo[0] = usedTime
 
     // 抓取余额
     re = regexp.MustCompile(`;fee='(\d+) *';`)
     fee, _ := strconv.Atoi(re.FindStringSubmatch(line)[1])
     amount := (fee - fee%100) / 10000
-    balanceInfo[1] = amount
+    balanceInfo[1] = float64(amount)
 
     return balanceInfo
 }
