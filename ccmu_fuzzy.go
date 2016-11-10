@@ -55,6 +55,7 @@ func main() {
     rand.Seed(time.Now().Unix())
     //fmt.Println(userList)
     count := 1
+    isCheckIn := false
 
     for {
 
@@ -77,9 +78,16 @@ func main() {
         //     fmt.Println("go on....")
         // }
 
+        // 注销上次的用户
+        if isCheckIn == true {
+            checkOut()
+            isCheckIn = false
+        }
+
         n := rand.Intn(len(userList))
         line := userList[n]
-        userInfo := strings.Split(line, "\t")
+        //userInfo := strings.Split(line, "\t")
+        userInfo := strings.Fields(line)
         account := userInfo[0]
         password := userInfo[3]
         //username := userInfo[1]
@@ -87,6 +95,7 @@ func main() {
         //fmt.Println(account, password, username)
         //log.Info(line)
         if succ := checkPasswd(account, password); succ {
+            isCheckIn = true
             balanceInfo := getBalance()
             fmt.Println(account, password, "Used Time:", balanceInfo[0], "Balance:", balanceInfo[1])
 
@@ -218,4 +227,15 @@ func getBalance() [2]int {
     balanceInfo[1] = amount
 
     return balanceInfo
+}
+
+func checkOut() {
+    client := &http.Client{
+        Timeout: time.Duration(5 * time.Second),
+    }
+
+    _, err := client.Get(URL+"F.htm")
+    if err != nil {
+        log.Error("failed to check the latest session out due to %s", err)
+    }
 }
