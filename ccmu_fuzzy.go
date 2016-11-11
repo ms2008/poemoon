@@ -51,6 +51,8 @@ func main() {
     }
     fmt.Println("os args:", os.Args)
 
+    // 程序重启需要注销上次的用户
+    checkOut()
     userList := fileTolines(FILE)
     rand.Seed(time.Now().Unix())
     //fmt.Println(userList)
