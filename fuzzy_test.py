@@ -83,7 +83,7 @@ def main():
 
             else:
                 print(username, "login failed!")
-                pass
+                #pass
         except:
             print(username, "Network Error!")
             continue
