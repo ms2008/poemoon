@@ -113,10 +113,12 @@ func main() {
             if balanceInfo[0] >= 2400 && balanceInfo[1] == 0 {
                 //fmt.Println(account, "time exceed!")
             } else {
-                log.Info(account, password, "Used Time:", balanceInfo[0], "Balance:", balanceInfo[1])
+                log.Info("%s\t%s\tUsed Time:%d\tBalance:%.1f", account, password, int(balanceInfo[0]), balanceInfo[1])
                 webbrowser.Open(URL)
                 break
             }
+        } else {
+            fmt.Println(account, "login failed!")
         }
     }
 
@@ -207,7 +209,7 @@ func getBalance() [2]float64 {
     defer func() {
         if p := recover(); p != nil {
             err := p.(error)
-            log.Critical("shit happens: balance calc fauled %v", err)
+            log.Critical("shit happens: balance calc failed %v", err)
         }
     }()
 
@@ -227,7 +229,7 @@ func getBalance() [2]float64 {
 
     // 抓取已用时间
     line := chunkTolines(string(result))[6]
-    re := regexp.MustCompile(`;time='(\d+) *';`)
+    re := regexp.MustCompile(`time='(\d+) *';`)
     usedTime, _ := strconv.ParseFloat(re.FindStringSubmatch(line)[1], 64)
     balanceInfo[0] = usedTime
 

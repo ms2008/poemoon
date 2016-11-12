@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-*-coding:utf-8-*-
+# -*- coding:utf-8 -*-
 
 import urllib
 import urllib2
@@ -8,7 +8,7 @@ import re
 import time
 import webbrowser
 
-URL = "http://192.168.161.2"
+URL = "http://192.168.161.2/"
 
 
 def post(url, data=None):
@@ -40,16 +40,15 @@ def login(username, upass):
 def logout():
     post(URL+"F.htm")
 
-def flux(response):
-    lineBeChecked = response.readlines()[6]
+def flux(lineBeChecked):
     indexStart = lineBeChecked.find("time") + 6
     indexEnd = lineBeChecked[indexStart:].find(" ") + indexStart
     #print("indexStart: ", indexStart, "indexEnd: ", indexEnd, "calced: ", lineBeChecked[indexStart:indexEnd])
     return int(lineBeChecked[indexStart:indexEnd])
 
-def fee(response):
-    feeArray = re.findall(r";fee='(\d+) +';", response, re.S)
-    amount = (float(fee[0])-float(fee[0])%100)/10000
+def fee(lineBeChecked):
+    feeArray = re.findall(r";fee='(\d+) *';", lineBeChecked, re.S)
+    amount = (float(feeArray[0])-float(feeArray[0])%100)/10000
     return amount
 
 
@@ -69,13 +68,13 @@ def main():
         try:
             if check(login(username, password)):
                 #print("Connected!")
-                balanceAmount = post(URL)
+                balanceAmount = post(URL).readlines()[6]
                 usedFlux = flux(balanceAmount)
-                remainedFee = fee(response)
+                remainedFee = fee(balanceAmount)
 
                 print username, password, "Used Time:", usedFlux, "Balance:", remainedFee
 
-                if usedFlux >= 2400 & remainedFee == 0:
+                if usedFlux >= 2400 and remainedFee == 0:
                     #print username, "time exceed!"
                     pass
                 else:
@@ -83,7 +82,7 @@ def main():
                     break
 
             else:
-                #print(username, "login failed!")
+                print(username, "login failed!")
                 pass
         except:
             print(username, "Network Error!")
