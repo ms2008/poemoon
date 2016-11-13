@@ -113,7 +113,7 @@ func main() {
             if balanceInfo[0] >= 2400 && balanceInfo[1] == 0 {
                 //fmt.Println(account, "time exceed!")
             } else {
-                log.Info("%s\t%s\tUsed Time:%d\tBalance:%.1f", account, password, int(balanceInfo[0]), balanceInfo[1])
+                log.Info("%s\t%s\tUsed Time:%d\tBalance:%.2f", account, password, int(balanceInfo[0]), balanceInfo[1])
                 webbrowser.Open(URL)
                 break
             }
