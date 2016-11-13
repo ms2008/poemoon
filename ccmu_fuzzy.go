@@ -236,7 +236,7 @@ func getBalance() [2]float64 {
     // 抓取余额
     re = regexp.MustCompile(`;fee='(\d+) *';`)
     fee, _ := strconv.Atoi(re.FindStringSubmatch(line)[1])
-    amount := (fee - fee%100) / 10000
+    amount := (fee - fee%100) / float64(10000)
     balanceInfo[1] = float64(amount)
 
     return balanceInfo
