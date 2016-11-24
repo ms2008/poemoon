@@ -37,7 +37,8 @@ var githash string = ""
 
 func init() {
     log.AddFilter("stdout", l4g.DEBUG, l4g.NewConsoleLogWriter())
-    log.AddFilter("file", l4g.INFO, l4g.NewFileLogWriter("connect.log", false))
+    //log.AddFilter("file", l4g.INFO, l4g.NewFileLogWriter("connect.log", false))
+    log.AddFilter("file", l4g.CRITICAL, l4g.NewFileLogWriter("connect.log", false))
 }
 
 func main() {
@@ -113,7 +114,7 @@ func main() {
             if balanceInfo[0] >= 2400 && balanceInfo[1] == 0 {
                 //fmt.Println(account, "time exceed!")
             } else {
-                log.Info("%s\t%s\tUsed Time:%d\tBalance:%.2f", account, password, int(balanceInfo[0]), balanceInfo[1])
+                log.Critical("%s\t%s\tUsed Time:%d\tBalance:%.2f", account, password, int(balanceInfo[0]), balanceInfo[1])
                 webbrowser.Open(URL)
                 break
             }
