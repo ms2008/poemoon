@@ -22,7 +22,7 @@ import (
     "regexp"
     "math/rand"
     "time"
-    l4g "github.com/alecthomas/log4go"
+    l4g "github.com/ms2008/log4go"
     "github.com/toqueteos/webbrowser"
 )
 
