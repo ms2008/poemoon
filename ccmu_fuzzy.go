@@ -1,10 +1,10 @@
-//CCMU Automatic Connector
+// CCMU Automatic Connector
 //
-//This tool provides automatic login feature for
-//connect to the network authenticated by dr.com
+// This tool provides automatic login feature for
+// connect to the network authenticated by dr.com
 //
-//Author: ms2008vip@gmail.com at 2016/11/8 16:54:29
-//
+// Author: ms2008vip@gmail.com at 2016/11/8 16:54:29
+
 
 //go:generate goversioninfo -icon=cover.ico
 
