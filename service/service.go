@@ -36,7 +36,7 @@ var (
 )
 
 type Service struct {
-	conf           *conf.Config
+	Conf           *conf.Config
 	md5Ctx         hash.Hash
 	salt           []byte // [4:8]
 	clientIP       []byte // [20:24]
@@ -52,7 +52,7 @@ type Service struct {
 // New create service instance and return.
 func New(c *conf.Config) (s *Service) {
 	s = &Service{
-		conf:           c,
+		Conf:           c,
 		md5Ctx:         md5.New(),
 		md5a:           make([]byte, 16),
 		tail1:          make([]byte, 16),
@@ -93,7 +93,7 @@ func (s *Service) md5(items ...[]byte) (ret []byte) {
 
 func (s *Service) mac() (ret []byte, err error) {
 	// check mac
-	as := strings.Replace(s.conf.Mac, ":", "", -1)
+	as := strings.Replace(s.Conf.Mac, ":", "", -1)
 	if len(as) != 12 {
 		err = errors.New("length of mac address is not correct")
 	}
