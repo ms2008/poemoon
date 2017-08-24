@@ -1,5 +1,5 @@
-version = "1.0"
-authServer = "192.168.3.4"
+version = "2.0"
+authServer = "192.168.161.2"
 # do not modify
 port = "61440"
 username = "PING"
