@@ -1,6 +1,6 @@
 # poemoon
 
-This tool provides automatic login feature for connect to the network authenticated by dr.com.
+This tool provides automatic login feature for connect to the network authenticated by dr.com. Tested on drcom client 5.2.0D. Implemented by both drcom and http protocol.
 
 All work done, it will opens a webpage, most browsers will open it on a new tab.
 
@@ -17,7 +17,10 @@ mv goversioninfo* $GOROOT/bin
 
 ## Installation
 
-You should always execute the command below first, so goversioninfo will create a file called resource.syso in the same directory.
+You should always execute the command below first, so goversioninfo will create a file called resource.syso in the same directory. Then you must run "go build", Go will embed the version information and an optional icon in the executable.
+
+> **Note:**
+> If you use the build.sh to complie the executable, there will be no any Microsoft Windows File Properties/Version Info embed in the executable.
 
 ```sh
 go generate
