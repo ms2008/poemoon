@@ -18,6 +18,7 @@ import (
     "math/rand"
     "time"
     "flag"
+
     "github.com/toqueteos/webbrowser"
 
     "./conf"

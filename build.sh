@@ -40,9 +40,7 @@ rm -rf ./${release_dir}/*
 #flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git rev-parse HEAD`"
 flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git describe --long --dirty --abbrev=14`"
 echo ${flags}
-go generate
 go build -ldflags "$flags" -x -o ${release_dir}/drcom_hp.exe ccmu_fuzzy.go
-go generate
 go build -ldflags "$flags" -x -o ${release_dir}/poemoon.exe ccmu_dr.go
 
 cp ./config.toml ./${release_dir}/
