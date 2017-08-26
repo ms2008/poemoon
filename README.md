@@ -19,12 +19,12 @@ mv goversioninfo* $GOROOT/bin
 
 You should always execute the command below first, so goversioninfo will create a file called resource.syso in the same directory. Then you must run "go build", Go will embed the version information and an optional icon in the executable.
 
-> **Note:**
-> If you use the build.sh to complie the executable, there will be no any Microsoft Windows File Properties/Version Info embed in the executable.
-
 ```sh
 go generate
 ```
+
+> **Note:**
+> If you use the build.sh to complie the executable, there will be no any Microsoft Windows File Properties/Version Info embed in the executable.
 
 ##### for windows
 ```sh
