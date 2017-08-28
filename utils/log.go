@@ -1,7 +1,7 @@
 package log
 
 import (
-	l4g "github.com/ms2008/log4go"
+    l4g "github.com/ms2008/log4go"
 )
 
 var lg = make(l4g.Logger)

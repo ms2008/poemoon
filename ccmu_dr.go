@@ -45,10 +45,10 @@ func main() {
         return
     }
 
-	flag.Parse()
-	if err := conf.Init(); err != nil {
-		panic(err)
-	}
+    flag.Parse()
+    if err := conf.Init(); err != nil {
+        panic(err)
+    }
 
     svr := service.New(conf.Conf)
     userList := fileTolines(FILE)
@@ -57,14 +57,14 @@ func main() {
     //fmt.Println(userList)
 
     // 1. challenge
-	if err := svr.Challenge(svr.ChallengeTimes); err != nil {
-		log.Error("drcomSvc.Challenge(%d) error(%v)", svr.ChallengeTimes, err)
-		return
-	}
+    if err := svr.Challenge(svr.ChallengeTimes); err != nil {
+        log.Error("drcomSvc.Challenge(%d) error(%v)", svr.ChallengeTimes, err)
+        return
+    }
 
-	// 2. login
-	if err := svr.Login(); err != nil {
-		log.Error("drcomSvc.Login() error(%v)", err)
+    // 2. login
+    if err := svr.Login(); err != nil {
+        log.Error("drcomSvc.Login() error(%v)", err)
 
         for {
 
@@ -113,19 +113,19 @@ func main() {
                 break
             }
         }
-	}
+    }
 
     webbrowser.Open(URL)
-	// 3. keepalive
-	ping_times := 0
-	for {
-		ping_times++
-		if err := svr.Alive(); err != nil {
-			log.Error("drcomSvc.Alive() error(%v)", err)
-			return
-		}
-		time.Sleep(time.Second * 12)
-	}
+    // 3. keepalive
+    ping_times := 0
+    for {
+        ping_times++
+        if err := svr.Alive(); err != nil {
+            log.Error("drcomSvc.Alive() error(%v)", err)
+            return
+        }
+        time.Sleep(time.Second * 12)
+    }
 }
 
 func fileTolines(filePath string) []string {
