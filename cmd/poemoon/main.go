@@ -5,7 +5,7 @@
 //
 // Author: ms2008vip@gmail.com at 2017/8/15 11:10:02
 
-//go:generate goversioninfo -icon=ballet.ico
+//go:generate goversioninfo -icon=../../resource/ballet.ico
 
 package main
 

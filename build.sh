@@ -40,13 +40,11 @@ rm -rf ./${release_dir}/*
 #flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git rev-parse HEAD`"
 flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git describe --long --dirty --abbrev=14`"
 echo ${flags}
-go build -ldflags "$flags" -x -o ${release_dir}/drcom_hp.exe ccmu_fuzzy.go
-go build -ldflags "$flags" -x -o ${release_dir}/poemoon.exe ccmu_dr.go
+go build -ldflags "$flags" -x -o ${release_dir}/drcom_hp.exe cmd/drcom_hp/main.go
+go build -ldflags "$flags" -x -o ${release_dir}/poemoon.exe cmd/poemoon/main.go
 
-cp ./config.toml ./${release_dir}/
+cp -r config ./${release_dir}/
 cp ./README.md ./${release_dir}/
-cp ./ids.txt ./${release_dir}/
-cp ./fuzzy_test.py ./${release_dir}/
 
 
 echo "finish building with GOOS: "${OS}", GOARCH: "${ARCH}

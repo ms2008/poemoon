@@ -56,8 +56,8 @@ The package is guaranteed to work on `windows`, `linux` and `darwin`. It also ha
 
 ## License
 
-It is licensed under the MIT open source license, please see the [LICENSE.md] file for more information.
+It is licensed under the MIT open source license, please see the [LICENSE](LICENSE) file for more information.
 
 ## Thanks...
 
-panjunwen wrote a nicer version by python. I forked it here [fuzzy_test.py](./fuzzy_test.py), [check it out!](https://github.com/panjunwen/Dr.COM-login).
+panjunwen wrote a nicer version by python. I forked it here [fuzzy_test.py](extern/fuzzy_test.py), [check it out!](https://github.com/panjunwen/Dr.COM-login).
