@@ -10,6 +10,9 @@ build:
 mac: clean
 	@sh build.sh darwin amd64
 
+win: clean
+	@sh build.sh windows amd64
+
 dep:
 	@dep ensure
 

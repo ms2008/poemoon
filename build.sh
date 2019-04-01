@@ -26,24 +26,30 @@ fi
 
 echo "start building with GOOS: "${OS}", GOARCH: "${ARCH}
 
+if [ ${OS} == "windows" ];then
+   SUFFIX=".exe"
+else
+   SUFFIX=""
+fi
+
 export GOOS=${OS}
 export GOARCH=${ARCH}
 
 
 release_dir="poemoon"
+revision=`git describe --long --dirty`
 
 
 mkdir -p ./${release_dir}
 rm -rf ./${release_dir}/*
 
 
-#flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git rev-parse HEAD`"
-flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git describe --long --dirty --abbrev=14`"
+flags="-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git describe --long --dirty --abbrev=14` -X 'main.goversion=`go version`'"
 echo ${flags}
-go build -ldflags "$flags" -x -o ${release_dir}/drcom_hp.exe cmd/drcom_hp/main.go
-go build -ldflags "$flags" -x -o ${release_dir}/poemoon.exe cmd/poemoon/main.go
+go build -ldflags "$flags" -x -o ${release_dir}/drcom_hp${SUFFIX} cmd/drcom_hp/main.go
+go build -ldflags "$flags" -x -o ${release_dir}/poemoon${SUFFIX} cmd/poemoon/main.go
 
-cp -r config ./${release_dir}/
+cp -r config/* ./${release_dir}/
 cp ./README.md ./${release_dir}/
 
 

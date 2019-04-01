@@ -34,6 +34,7 @@ const (
 var log = make(l4g.Logger)
 var buildstamp string = ""
 var githash string = ""
+var goversion string = ""
 
 func init() {
 	log.AddFilter("stdout", l4g.DEBUG, l4g.NewConsoleLogWriter())
@@ -46,7 +47,8 @@ func main() {
 	args := os.Args
 	if len(args) == 2 && (args[1] == "--version" || args[1] == "-v") {
 		fmt.Printf("Git Commit Hash: %s\n", githash)
-		fmt.Printf("UTC Build Time: %s\n", buildstamp)
+		fmt.Printf("UTC Build Time : %s\n", buildstamp)
+		fmt.Printf("Golang Version : %s\n", goversion)
 		return
 	}
 	fmt.Println("os args:", os.Args)

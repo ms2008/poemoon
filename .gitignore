@@ -5,6 +5,7 @@ build/*
 op
 .svn
 .idea
+.vscode
 .DS_Store
 .project
 .metadata/
